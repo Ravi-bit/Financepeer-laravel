@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use RealRashid\SweetAlert\Facades\Alert;
 
 
@@ -43,6 +44,7 @@ class ProdController extends Controller
         $product->name = $request->name;
         $product->description = $request->description;
         $product->price = $request->price;
+        $product->image=$request->filep;
         $product->save();
         //Alert::success('Success Title', 'Success Message');
         sleep(2);
@@ -80,7 +82,14 @@ class ProdController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Product $product)
-    {
+    {   $remfile= $product->image;
+        if($request->filep){
+            $product->image=$request->filep;
+        File::delete(storage_path('app/public/products/'.$remfile));
+        }else{
+            $product->image=$remfile;
+        }
+        //rmdir(storage_path('app/public/products/'.$remfile));
         $product->name = $request->name;
         $product->description = $request->description;
         $product->price = $request->price;
@@ -97,7 +106,8 @@ class ProdController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Product $product)
-    {
+    {    $delfile= $product->image;
+        File::delete(storage_path('app/public/products/'.$delfile));
          $product->delete();
         toast('Product deleted successfully','warning');
          return redirect()->route('products.index');

@@ -7,6 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Shopee</title>
     <link rel="icon" href="{{ asset('images/e1.png') }}" type="image/x-icon" />
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet" />
+
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
+    <link
+  href="https://unpkg.com/filepond-plugin-image-edit/dist/filepond-plugin-image-edit.css"
+  rel="stylesheet"
+/>
 
     <link
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
@@ -23,13 +30,10 @@
   href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.css"
   rel="stylesheet"
 />
-<link href="https://fonts.googleapis.com/css2?family=Aclonica&family=Acme&family=Cookie&family=Dancing+Script:wght@700&family=Grandstander:ital,wght@0,500;0,600;0,700;1,600&family=Henny+Penny&family=Indie+Flower&family=Josefin+Sans:wght@500;600&family=Lobster&family=Marck+Script&family=Mukta:wght@500;600&family=Nothing+You+Could+Do&family=Pacifico&family=Roboto:ital,wght@0,500;0,700;1,400&family=Syne+Mono&family=Syne+Tactile&family=Trispace:wght@300;500;600&display=swap"
-        rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Aclonica&family=Acme&family=Cookie&family=Dancing+Script:wght@700&family=Grandstander:ital,wght@0,500;0,600;0,700;1,600&family=Henny+Penny&family=Indie+Flower&family=Josefin+Sans:wght@500;600&family=Lobster&family=Marck+Script&family=Mukta:wght@500;600&family=Nothing+You+Could+Do&family=Pacifico&family=Roboto:ital,wght@0,500;0,700;1,400&family=Syne+Mono&family=Syne+Tactile&family=Trispace:wght@300;500;600&display=swap" rel="stylesheet" />
 
-
-        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <!-- Compiled and minified JavaScript -->
-
 <style>
 .icolor{
     color: white;
@@ -47,6 +51,8 @@
     border-radius: 21px;
     background-color: rgb(255, 255, 255, 0.3);
 }
+
+.contain {object-fit: fill;}
 
 .mar:hover{
 
@@ -71,7 +77,6 @@
     width: 28%;
     margin:21px;
     border-radius: 20px;
-
     box-shadow: 3px 4px 15px rgba(5, 5, 5, 0.2);
 }
 
@@ -218,32 +223,42 @@
          </button>
       </div>
 
-      <form action="/products" method="POST" style="margin-top:12px">
+      <form action="/products" method="POST" style="margin-top:12px" enctype="multipart/form-data">
       <div class="modal-body text-center">
       <h6 style="font-family:'Aclonica', sans-serif;font-weight: bold; margin-top:15px;margin-bottom:20px;">Enter Products Details</h6>
       @csrf
       <div style="display: flex; flex-direction:column; justify-content:center; align-items:center">
       <div class="form-outline mb-4" style="width: 70%; margin:6px">
-      <input type="text" id="form1Example1" class="form-control" name="name" />
+      <input type="text" id="form1Example1" class="form-control" name="name" required />
       <label class="form-label" for="form1Example1">Name</label>
       </div>
       <div class="form-outline mb-4" style="width: 70%; margin:6px">
-      <input type="text" id="form1Example2" class="form-control" name="description" />
+      <input type="text" id="form1Example2" class="form-control" name="description" required />
       <label class="form-label" for="form1Example2">Description</label>
       </div>
       <div class="form-outline mb-4" style="width: 70%; margin:6px">
-      <input type="text" id="form1Example3" class="form-control" name="price" />
+      <input type="text" id="form1Example3" class="form-control" name="price" required />
       <label class="form-label" for="form1Example3">Price</label>
       </div>
+      <div class="form-outline mb-4" style="width: 70%; margin:4px">
+      <div>
+      <label style="text-align:left;color:grey">Product Image</label>
+
+      <input type="file" name="filep" id="filepond" class="fpond" data-allow-reorder="true" data-max-file-size="2MB" data-max-files="1" required>
+
+      </div>
+
+      </div>
+
       </div>
 
       </div>
 
       <div class="modal-footer" style='border: none; margin-top:8px'>
       <input type="hidden" class="hidden_val" value="hidden hi">
-        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
-          Close
-        </button>
+
+        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal" >Close</button>
+
         <input type="submit" class="btn btn-primary" value="Insert" />
       </div>
       </form>
@@ -258,18 +273,50 @@
 
 
 @yield('content')
-<script
-  type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
+<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+<script src="https://unpkg.com/filepond-plugin-image-edit/dist/filepond-plugin-image-edit.js"></script>
+<script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
+<script src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.js"></script>
+<script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+<script>
+const inputElement = document.querySelector('#filepond');
+
+FilePond.registerPlugin(
+  FilePondPluginImagePreview,
+  FilePondPluginImageExifOrientation,
+  FilePondPluginFileValidateSize,
+  FilePondPluginImageEdit
+);
+
+const pond = FilePond.create( inputElement);
+const inputElements = document.getElementsByClassName("efilepond");
+var eachEle;
+for(var i=0;i<inputElements.length;i++){
+    eachEle=inputElements[i];
+    assign(eachEle,i);
+}
+function assign(obj,pos){
+    FilePond.create( obj);
+}
+//   console.log(inputElement1);
+//   const pond1= FilePond.create( inputElement1);
+FilePond.setOptions({
+    server: {
+        url:'/uploadFile',
+        headers:{
+            'X-CSRF-TOKEN':'{{csrf_token()}}'
+        }
+
+    }
+});
 
 
-
-
+</script>
 @include('sweetalert::alert')
 </body>
-
 @yield('script')
 </html>

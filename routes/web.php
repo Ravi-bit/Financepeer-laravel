@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdController;
+use Illuminate\Support\Facades\File;
+use Illuminate\Http\Request;
+use App\Http\Controllers\UploadFileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,5 +20,8 @@ use App\Http\Controllers\ProdController;
 Route::get('/', function () {
     return redirect()->route('products.index');
 });
+
+
+Route::post('/uploadFile',[UploadFileController::class,'store']);
 
 Route::resource('products', ProdController::class);

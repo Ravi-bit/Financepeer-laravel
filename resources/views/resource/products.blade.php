@@ -1,17 +1,27 @@
 @extends('resource.header')
 @section('content')
 <h4 style="text-align: center; font-family:'Aclonica', sans-serif;font-weight: bold; margin-top:28px;margin-bottom:10px;">All Products</h4>
+
 <div class="container">
 
 @forelse($products as $p)
    <div class="boxing">
-   <div class="card" style="border-radius: 20px; ">
-     <div class="card-header" style="font-weight: bold; text-align:center;">
+   <div class="card" style="border-radius: 20px; position:relative">
+     <!-- <div class="card-header" style="font-weight: bold; text-align:center;">
    Product {{$p->id}}
-    </div>
+    </div> -->
+    <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light" style="max-height:350px; min-height:350px;">
+    <img
+      src="{{asset('storage/products/'.$p->image)}}" alt="image"
+      class="img-fluid contain"
+    />
+    <a data-mdb-toggle="modal" data-mdb-target="#Mymodal<?php echo $p->id; ?>">
+      <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
+    </a>
+  </div>
     <div class="card-body">
       <h5 class="card-title">{{$p->name}}</h5>
-      <button class="btn btn-success buttonsize" data-mdb-toggle="modal" data-mdb-target="#Mymodal<?php echo $p->id; ?>">View</button>
+
       <button class="btn btn-warning buttonsize" data-mdb-toggle="modal" data-mdb-target="#MyEditmodal<?php echo $p->id; ?>">Edit</button>
       <!--<a href="/products/{{$p->id}}/edit" class="btn btn-warning">Edit</a>-->
      <div style="display:inline-block;" class="buttonsize">
@@ -46,11 +56,17 @@
    <table class="table table-striped w-auto">
 <!--Table body-->
 <tbody>
+  <tr>
+    <th scope="row">1</th>
+    <th>Image</th>
+    <td><img src="{{asset('storage/products/'.$p->image)}}" alt="image" width="60" height="60"/></td>
+  </tr>
   <tr class="table-info">
     <th scope="row">1</th>
     <th>Name</th>
     <td>{{$p->name}}</td>
   </tr>
+
   <tr>
     <th scope="row">2</th>
     <th>Description</th>
@@ -106,6 +122,10 @@
       <input type="text" id="ed3formL{{$p->id}}" class="form-control" name="price" value="{{$p->price}}"/>
       <label class="form-label" for="ed3formL{{$p->id}}">Price</label>
       </div>
+      <div class="form-outline mb-4" style="width: 70%; margin:4px">
+      <label style="color:grey">Product Image</label>
+      <input type="file" name="filep" class="efilepond" id="efp{{$p->id}}" data-id="editfilepond{{$p->id}}" data-allow-reorder="true" data-max-file-size="2MB" data-max-files="1" required >
+      </div>
       </div>
 
       </div>
@@ -123,7 +143,9 @@
 
 
 </div>
+
 </div>
+
 </div>
 
 
@@ -168,9 +190,6 @@ $(document).ready(function(){
     });
   });
 
-
-
-
   $(".editing").click(function(e){
       e.preventDefault();
       let pid=$(this).data('id');
@@ -191,6 +210,7 @@ $(document).ready(function(){
       }
     });
   });
+
 });
 </script>
 @endsection
