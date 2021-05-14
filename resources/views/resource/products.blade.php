@@ -1,4 +1,7 @@
 @extends('resource.header')
+@section('title')
+    My shopee | All products
+@endsection
 @section('content')
 <h4 style="text-align: center; font-family:'Aclonica', sans-serif;font-weight: bold; margin-top:28px;margin-bottom:10px;">All Products</h4>
 
@@ -28,7 +31,7 @@
       <form action="/products/{{$p->id}}" method="POST" id="delete-user-form{{$p->id}}" class="deleteForm">
       @csrf
       {{method_field('DELETE')}}
-       @method('DELETE')
+       <!-- @method('DELETE') -->
       <button class="btn btn-danger deleting" data-id="{{$p->id}}">Delete</button>
       </form>
 
@@ -38,7 +41,7 @@
 
 
      <!-- Details Modal-->
-     <div class="modal top fade" id="Mymodal<?php echo $p->id; ?>" tabindex="-1"  aria-hidden="true" data-mdb-backdrop="static" data-mdb-keyboard="true">
+     <div class="modal top fade" id="Mymodal<?php echo $p->id; ?>" tabindex="-1"  aria-hidden="true"  data-mdb-keyboard="true">
   <div class="modal-dialog  modal-dialog-centered" style="padding: 10px;">
     <div class="modal-content">
       <div class="modal-header" style='border: none;background-color: rgb(41, 38, 38,0.8);'>
