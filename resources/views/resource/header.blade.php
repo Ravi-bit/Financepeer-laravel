@@ -23,6 +23,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Aclonica&family=Acme&family=Cookie&family=Dancing+Script:wght@700&family=Grandstander:ital,wght@0,500;0,600;0,700;1,600&family=Henny+Penny&family=Indie+Flower&family=Josefin+Sans:wght@500;600&family=Lobster&family=Marck+Script&family=Mukta:wght@500;600&family=Nothing+You+Could+Do&family=Pacifico&family=Roboto:ital,wght@0,500;0,700;1,400&family=Syne+Mono&family=Syne+Tactile&family=Trispace:wght@300;500;600&display=swap" rel="stylesheet" />
 
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
     <!-- Compiled and minified JavaScript -->
 
 
@@ -187,6 +188,9 @@
                 <li class="nav-item mar">
                     <a class="nav-link" href="{{route('products.index')}}">Products</a>
                 </li>
+                <li class="nav-item mar">
+                    <a class="nav-link" href="/uploadRecord">Record</a>
+                </li>
                 @endauth
                 <li class="nav-item mar">
                     <a class="nav-link disabled">Contact us</a>
@@ -202,7 +206,7 @@
                 <!-- <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block"> -->
                 @auth
 
-                <li class="nav-item me-3 me-lg-1 inserting" title="Insert a record" style="margin-top: 4px;">
+                <li class="nav-item me-3 me-lg-1 inserting" data-toggle="tooltip" data-placement="top" title="Insert a record" style="margin-top: 4px;">
                     <a class="nav-link" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
                         <span><i class="fas fa-plus-circle fa-lg icolor"></i></span>
                     </a>

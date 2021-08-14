@@ -6,6 +6,7 @@ use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use App\Http\Controllers\UploadFileController;
+use App\Http\Controllers\RecordController;
 
 
 /*
@@ -30,8 +31,11 @@ Route::get('/', function () {
 
 Route::post('/uploadFile',[UploadFileController::class,'store']);
 
-Route::resource('products', ProdController::class);
+Route::resource('products', ProdController::class)->middleware(['auth:sanctum', 'verified']);
 
+Route::get('uploadRecord', [RecordController::class,'get'])->middleware(['auth:sanctum', 'verified']);
+Route::post('uploadRecord', [RecordController::class,'post'])->middleware(['auth:sanctum', 'verified']);
+Route::get('viewRecord',[RecordController::class,'display'])->middleware(['auth:sanctum', 'verified']);
 Route::get('searchProducts',[SearchController::class,'search']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
